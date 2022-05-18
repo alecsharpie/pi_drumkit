@@ -1,15 +1,15 @@
-import pyglet
+from pyglet import media
 import time
 import board
 import digitalio
 import adafruit_lis3dh
 # setup accelerometer
 i2c = board.I2C()
-int1 = digitalio.DigitalInOut(board.D21)  # Set this to the correct pin for the interrupt!
+int1 = digitalio.DigitalInOut(board.D21)  # Sets input pin on board (BCM=21)
 lis3dh = adafruit_lis3dh.LIS3DH_I2C(i2c, int1=int1)
-lis3dh.set_tap(1, 90)
+lis3dh.set_tap(1, 90) # single tap & sensitivity
 #setup music
-sound = pyglet.resource.media('sounds/short-kick-low-jazz-single.wav', streaming=False)
+sound = media.StaticSource(media.load('sounds/short-kick-low-jazz-single.wav'))
 print('Drum on!')
 while True:
 	if lis3dh.tapped:
